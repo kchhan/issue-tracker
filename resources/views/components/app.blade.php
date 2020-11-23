@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row">
         <x-sidebar></x-sidebar>
 
-        <x-content>
+        <x-content :title="$title" :color="$color">
             {{ $slot }}
         </x-content>
     </div>

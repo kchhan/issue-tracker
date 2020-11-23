@@ -9,7 +9,7 @@
         >
             <li class="mr-3 flex-1">
                 <a
-                    href="#"
+                    href="/"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-600"
                 >
                     <i class="fas fa-chart-area pr-0 md:pr-3"></i
@@ -21,7 +21,7 @@
             </li>
             <li class="mr-3 flex-1">
                 <a
-                    href="#"
+                    href="/projects"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
                 >
                     <i class="fas fa-tasks pr-0 md:pr-3"></i
@@ -34,7 +34,7 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="#"
+                    href="/tickets"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500"
                 >
                     <i class="fas fa-receipt pr-0 md:pr-3"></i
@@ -47,7 +47,7 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="#"
+                    href="/messages"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500"
                 >
                     <i class="fa fa-envelope pr-0 md:pr-3"></i
@@ -60,7 +60,7 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="#"
+                    href="/profiles/{profile}"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500"
                 >
                     <i class="fa fa-user pr-0 md:pr-3"></i
@@ -71,16 +71,20 @@
                 </a>
             </li>
             <li class="mr-3 flex-1">
-                <a
-                    href="/logout"
+                <form
+                    method="POST"
+                    action="{{ route('logout') }}"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500"
                 >
+                    @csrf
                     <i class="fas fa-sign-out-alt pl-0 md:pr-3"></i
-                    ><span
-                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
-                        >Log Out</span
+                    ><button
+                        type="submit"
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline"
                     >
-                </a>
+                        Log Out
+                    </button>
+                </form>
             </li>
         </ul>
     </div>

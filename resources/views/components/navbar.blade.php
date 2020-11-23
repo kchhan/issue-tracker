@@ -55,7 +55,7 @@
                 <li class="flex-1 md:flex-none md:mr-3">
                     <a
                         class="inline-block py-2 px-4 text-white no-underline"
-                        href="#"
+                        href="/"
                         >Issue Tracker</a
                     >
                 </li>
@@ -67,8 +67,8 @@
                         width="40"/>
                     <a
                         class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                        href="#"
-                        >Hi, {{ auth()->user()->first_name }}</a
+                        href="/profiles/{profile}"
+                        >{{ auth()->user()->first_name }}</a
                     >
                 </li>
             </ul>
