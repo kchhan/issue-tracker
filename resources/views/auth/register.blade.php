@@ -21,7 +21,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="first_name"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("First Name") }}:
                             </label>
@@ -47,7 +47,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="last_name"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("Last Name") }}:
                             </label>
@@ -73,7 +73,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="username"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("Username") }}:
                             </label>
@@ -99,7 +99,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="email"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("E-Mail Address") }}:
                             </label>
@@ -124,7 +124,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="password"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("Password") }}:
                             </label>
@@ -148,7 +148,7 @@
                         <div class="flex flex-wrap">
                             <label
                                 for="password-confirm"
-                                class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4"
+                                class="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 {{ __("Confirm Password") }}:
                             </label>

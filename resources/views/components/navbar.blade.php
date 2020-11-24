@@ -67,7 +67,7 @@
                         width="40"/>
                     <a
                         class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                        href="/profiles/{profile}"
+                        href="/profiles/{user:username}"
                         >{{ auth()->user()->first_name }}</a
                     >
                 </li>

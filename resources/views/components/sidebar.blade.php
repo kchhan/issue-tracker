@@ -9,7 +9,7 @@
         >
             <li class="mr-3 flex-1">
                 <a
-                    href="/"
+                    href="{{ route('home') }}"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-600"
                 >
                     <i class="fas fa-chart-area pr-0 md:pr-3"></i
@@ -21,7 +21,7 @@
             </li>
             <li class="mr-3 flex-1">
                 <a
-                    href="/projects"
+                    href="{{ route('projects') }}"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
                 >
                     <i class="fas fa-tasks pr-0 md:pr-3"></i
@@ -34,8 +34,8 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="/tickets"
-                    class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500"
+                    href="{{ route('tickets') }}"
+                    class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-orange-500"
                 >
                     <i class="fas fa-receipt pr-0 md:pr-3"></i
                     ><span
@@ -47,7 +47,7 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="/messages"
+                    href="{{ route('messages') }}"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500"
                 >
                     <i class="fa fa-envelope pr-0 md:pr-3"></i
@@ -60,7 +60,20 @@
 
             <li class="mr-3 flex-1">
                 <a
-                    href="/profiles/{profile}"
+                    href="{{ route('users') }}"
+                    class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500"
+                >
+                    <i class="fas fa-users pr-0 md:pr-3"></i
+                    ><span
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                        >Users</span
+                    >
+                </a>
+            </li>
+
+            <li class="mr-3 flex-1">
+                <a
+                    href="{{ route('profile', auth()->user()) }}"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500"
                 >
                     <i class="fa fa-user pr-0 md:pr-3"></i
