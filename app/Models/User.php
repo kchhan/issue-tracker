@@ -19,6 +19,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'username',
+        'avatar',
         'email',
         'password',
     ];
@@ -43,6 +44,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Returns users full name
+     */
+    public function name()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    /**
      * Returns the role types of the user
      */
     public function roles()
@@ -65,7 +74,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Return list of user's permissions
+     * Returns list of user's permissions
      */
     public function permissions()
     {
@@ -73,11 +82,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Return an array of users with the role of developer
+     */
+    public function getDevelopers()
+    {
+        // TODO get all developers
+    }
+
+    /**
      * Return all projects that the user is a part of
      */
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, 'developer_project');
     }
 
     /**
@@ -85,6 +102,16 @@ class User extends Authenticatable
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'developer_ticket');
+    }
+
+    /**
+     * Return the path to the user's profile
+     */
+    public function path($append = '')
+    {
+        $path = route('profile', $this->username);
+
+        return $append ? "{$path}/{$append}" : $path;
     }
 }

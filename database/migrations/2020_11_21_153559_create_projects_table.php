@@ -15,11 +15,11 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('manager_id')->nullable();
             $table->string('title', 150);
             $table->string('description');
-            $table->foreignId('manager_id')->nullable();
             $table->enum('type', ['bug', 'feature', 'other'])->default('bug');
-            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+            $table->enum('priority', ['low', 'medium', 'high'])->default('high');
             $table->enum('status', ['assigned', 'in_progress', 'submitted', 'completed'])->default('assigned');
             $table->timestamp('due_on');
             $table->timestamps();
@@ -57,6 +57,7 @@ class CreateProjectsTable extends Migration
             $table->foreign('developer_id')
                 ->references('id')
                 ->on('users');
+
         });
     }
 
@@ -67,6 +68,8 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('manager_project');
+        Schema::dropIfExists('developer_project');
         Schema::dropIfExists('projects');
     }
 }

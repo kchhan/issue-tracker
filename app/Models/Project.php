@@ -15,8 +15,12 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
+        'manager_id',
         'title',
         'description',
+        'developers',
+        'due_on',
+
     ];
 
     /**
@@ -24,7 +28,7 @@ class Project extends Model
      */
     public function manager()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
     /**
@@ -32,6 +36,14 @@ class Project extends Model
      */
     public function developers()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'developer_project', 'project_id', 'developer_id')->withTimestamps();
+    }
+
+    /**
+     * Return all tickets of the project
+     */
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'developer_ticket')->withTimestamps();
     }
 }

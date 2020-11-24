@@ -15,37 +15,52 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id');
+            $table->foreignId('developer_id');
             $table->string('title', 100);
             $table->string('description');
-            $table->foreignId('manager_id');
-            $table->foreignId('developer_id');
-            $table->enum('priority', ['low', 'medium', 'high'])->default('low');
+            $table->enum('priority', ['low', 'medium', 'high'])->default('high');
             $table->enum('status', ['assigned', 'in_progress', 'submitted', 'completed'])->default('assigned');
             $table->timestamp('due_on');
             $table->timestamps();
 
-            $table->foreign('manager_id')
+            $table->foreign('project_id')
                 ->references('id')
-                ->on('users');
+                ->on('projects');
             $table->foreign('developer_id')
                 ->references('id')
                 ->on('users');
         });
 
         Schema::create('developer_ticket', function (Blueprint $table) {
-          $table->primary(['ticket_id', 'developer_id']);
-          $table->foreignId('ticket_id');
-          $table->foreignId('developer_id');
-          $table->timestamps();
+            $table->primary(['ticket_id', 'developer_id']);
+            $table->foreignId('ticket_id');
+            $table->foreignId('developer_id');
+            $table->timestamps();
 
-          $table->foreign('ticket_id')
-              ->references('id')
-              ->on('projects');
+            $table->foreign('ticket_id')
+                ->references('id')
+                ->on('tickets');
 
-          $table->foreign('developer_id')
-              ->references('id')
-              ->on('users');
-      });
+            $table->foreign('developer_id')
+                ->references('id')
+                ->on('users');
+        });
+
+        Schema::create('project_ticket', function (Blueprint $table) {
+            $table->primary(['project_id', 'ticket_id']);
+            $table->foreignId('project_id');
+            $table->foreignId('ticket_id');
+            $table->timestamps();
+
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects');
+            $table->foreign('ticket_id')
+                ->references('id')
+                ->on('tickets');
+
+        });
     }
 
     /**
@@ -55,6 +70,8 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+      Schema::dropIfExists('developer_ticket');
+      Schema::dropIfExists('project_ticket');
+      Schema::dropIfExists('tickets');
     }
 }

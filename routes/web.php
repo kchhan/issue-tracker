@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +24,40 @@ Route::middleware('auth')->group(function () {
         return redirect('home');
     });
 
-    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+    Route::get('/projects/create', [ProjectController::class, 'create']);
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit']);
+    Route::patch('/projects/{project}', [ProjectController::class, 'update']);
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
+
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
+    Route::get('/tickets/create', [TicketController::class, 'create']);
+    Route::post('/tickets', [TicketController::class, 'store']);
+    Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
+    Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit']);
+    Route::patch('/tickets/{ticket}', [TicketController::class, 'update']);
+    Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
+
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages');
+    Route::get('/messages/create', [MessageController::class, 'create']);
+    Route::post('/messages', [MessageController::class, 'store']);
+    Route::get('/messages/{message}', [MessageController::class, 'show']);
+    Route::delete('/messages/{message}', [MessageController::class, 'destroy']);
+
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    Route::patch('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+    Route::get('/profiles/{user:username}', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profiles/{user:username}/edit', [ProfileController::class, 'edit']);
+    Route::patch('/profiles/{user:username}', [ProfileController::class, 'update']);
 });
 
 Auth::routes();
