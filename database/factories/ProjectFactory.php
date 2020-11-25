@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
@@ -26,7 +26,7 @@ class ProjectFactory extends Factory
             'manager_id' => User::factory(),
             'title' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'developers' => User::factory(),
+            // TODO find how to connect developers
             'due_on' => $this->faker->dateTimeThisMonth,
         ];
     }

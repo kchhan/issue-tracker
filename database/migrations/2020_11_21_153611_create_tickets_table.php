@@ -55,10 +55,13 @@ class CreateTicketsTable extends Migration
 
             $table->foreign('project_id')
                 ->references('id')
-                ->on('projects');
+                ->on('projects')
+                ->onDelete('cascade');
+
             $table->foreign('ticket_id')
                 ->references('id')
-                ->on('tickets');
+                ->on('tickets')
+                ->onDelete('cascade');
 
         });
     }
@@ -70,8 +73,8 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('developer_ticket');
-      Schema::dropIfExists('project_ticket');
-      Schema::dropIfExists('tickets');
+        Schema::dropIfExists('developer_ticket');
+        Schema::dropIfExists('project_ticket');
+        Schema::dropIfExists('tickets');
     }
 }

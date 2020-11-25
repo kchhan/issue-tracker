@@ -26,22 +26,8 @@ class CreateProjectsTable extends Migration
 
             $table->foreign('manager_id')
                 ->references('id')
-                ->on('users');
-        });
-
-        Schema::create('manager_project', function (Blueprint $table) {
-            $table->primary(['project_id', 'manager_id']);
-            $table->foreignId('project_id');
-            $table->foreignId('manager_id');
-            $table->timestamps();
-
-            $table->foreign('project_id')
-                ->references('id')
-                ->on('projects');
-
-            $table->foreign('manager_id')
-                ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
         });
 
         Schema::create('developer_project', function (Blueprint $table) {
@@ -52,12 +38,13 @@ class CreateProjectsTable extends Migration
 
             $table->foreign('project_id')
                 ->references('id')
-                ->on('projects');
+                ->on('projects')
+                ->onDelete('cascade');
 
             $table->foreign('developer_id')
                 ->references('id')
-                ->on('users');
-
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -68,7 +55,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manager_project');
         Schema::dropIfExists('developer_project');
         Schema::dropIfExists('projects');
     }

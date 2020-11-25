@@ -19,12 +19,14 @@ class Project extends Model
         'title',
         'description',
         'developers',
+        'type',
+        'status',
+        'priority',
         'due_on',
-
     ];
 
     /**
-     * Returns the project manager of the project
+     * Defines relationship mangager_project
      */
     public function manager()
     {
@@ -32,18 +34,19 @@ class Project extends Model
     }
 
     /**
-     * Returns all assigned develpers of the project
+     * Defines relationship developer_project
      */
     public function developers()
     {
+        // $this->belongsToMany(model, relationship_table, foreign_key, foreign_key name of the model joining to)
         return $this->belongsToMany(User::class, 'developer_project', 'project_id', 'developer_id')->withTimestamps();
     }
 
     /**
-     * Return all tickets of the project
+     * Defines relationship developer_ticket
      */
     public function tickets()
     {
-        return $this->belongsToMany(Ticket::class, 'developer_ticket')->withTimestamps();
+        return $this->belongsToMany(Ticket::class, 'developer_ticket', 'ticket_id', 'developer_id')->withTimestamps();
     }
 }

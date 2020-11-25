@@ -27,18 +27,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
-    Route::get('/projects/create', [ProjectController::class, 'create']);
     Route::post('/projects', [ProjectController::class, 'store']);
-    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::get('/projects/create', [ProjectController::class, 'create']);
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit']);
+    Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::patch('/projects/{project}', [ProjectController::class, 'update']);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
 
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
     Route::get('/tickets/create', [TicketController::class, 'create']);
     Route::post('/tickets', [TicketController::class, 'store']);
-    Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
     Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit']);
+    Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
     Route::patch('/tickets/{ticket}', [TicketController::class, 'update']);
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
 

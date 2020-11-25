@@ -63,7 +63,7 @@ class ProjectController extends Controller
         $project->manager_id = auth()->id();
         $project->save();
 
-        $project->developers()->attach(request('developers'));
+        $project->developers()->sync(request('developers'));
 
         return redirect('projects');
     }
@@ -71,45 +71,70 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        //
+        return view('projects.show', [
+            'project' => $project,
+            'developers' => $project->developers()->get(),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        $developers = User::all();
+        // dd($project->description);
+        return view('projects.edit', compact('project', 'developers'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:3'],
+            'developers' => 'exists:users,id',
+            'type' => 'required',
+            'status' => 'required',
+            'priority' => 'required',
+            'due_on' => ['required', 'after_or_equal:created_at'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/projects/{$project->id}/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $project->update(request(['title', 'description', 'type', 'status', 'priority', 'due_on']));
+
+        $project->developers()->sync(request('developers'));
+
+        return redirect("/projects/" . $project->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+
     }
 }
