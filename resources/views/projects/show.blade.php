@@ -15,13 +15,6 @@
             <p>UPDATED AT: {{ $project->updated_at }}</p>
         </div>
         <div>
-            <a
-                href="/projects/{{ $project->id }}/edit"
-                class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2"
-                >Edit Project</a
-            >
-        </div>
-        <div>
             <ul>
                 <h4>Assigned Developers</h4>
                 @forelse($developers as $developer)
@@ -30,6 +23,13 @@
                 <li>No Assigned Developers</li>
                 @endforelse
             </ul>
+        </div>
+        <div>
+            <a
+                href="/projects/{{ $project->id }}/edit"
+                class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2"
+                >Edit Project</a
+            >
         </div>
         <div>
             <form method="POST" action="/projects/{{ $project->id }}">

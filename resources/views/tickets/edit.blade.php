@@ -4,6 +4,22 @@
           @csrf @method("PATCH")
 
           <div class="inline">
+            <label
+                for="project"
+                class="block font-bold mb-1 mx-4  text-gray-700"
+                >Project (Cannot be changed)</label
+            >
+            <input
+                type="text"
+                name="project"
+                class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
+                value="{{ old('title', $project->title) }}"
+                disabled
+            />
+        </div>
+
+
+          <div class="inline">
               <label
                   for="title"
                   class="block font-bold mb-1 mx-4  text-gray-700"

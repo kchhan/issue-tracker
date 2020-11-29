@@ -16,14 +16,14 @@
             <p>UPDATED AT: {{ $ticket->updated_at }}</p>
         </div>
         <div>
+            <p>DEVELOPER: {{ $developer->name() }}</p>
+        </div>
+        <div>
             <a
                 href="/tickets/{{ $ticket->id }}/edit"
                 class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2"
                 >Edit ticket</a
             >
-        </div>
-        <div>
-            <p>DEVELOPER: {{ $developer->name() }}</p>
         </div>
         <div>
             <form method="POST" action="/tickets/{{ $ticket->id }}">

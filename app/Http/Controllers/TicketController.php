@@ -89,12 +89,17 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $ticket_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ticket $ticket)
     {
-        //
+        // TODO: only use developers assigned to given project
+        return view('tickets.edit', [
+            'ticket' => $ticket,
+            'project' => Project::find($ticket->project_id),
+            'developers' => User::all(),
+        ]);
     }
 
     /**
@@ -104,19 +109,39 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ticket $ticket)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:3'],
+            'developer' => 'exists:users,id',
+            'type' => 'required',
+            'status' => 'required',
+            'priority' => 'required',
+            'duedate' => ['required', 'after_or_equal:created_at'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/tickets/{$ticket->id}/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $ticket->update(request(['title', 'description', 'type', 'status', 'priority', 'duedate']));
+
+        return redirect("/tickets/" . $ticket->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $ticket_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ticket $ticket)
     {
-        //
+        Ticket::destroy($ticket->id);
+
+        return redirect('tickets');
     }
 }

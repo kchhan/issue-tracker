@@ -89,8 +89,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        // TODO: only use developers assigned to project
         $developers = User::all();
-        // dd($project->description);
+
         return view('projects.edit', compact('project', 'developers'));
     }
 
