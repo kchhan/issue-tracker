@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Project;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,25 @@ class TicketFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'duedate' => $this->faker->dateTimeThisMonth,
         ];
+    }
+
+    /**
+     * Associates the ticket to a existing project and a developer from that project
+     *
+     * @var id $ticket that was just created
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Ticket $ticket) {
+            $project = Project::all()->random();
+            $developer = $project->developers->random();
+
+            $ticket->project_id = $project->id;
+            $ticket->developer_id = $developer->id;
+        });
     }
 }

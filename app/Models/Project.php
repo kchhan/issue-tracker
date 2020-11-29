@@ -47,6 +47,6 @@ class Project extends Model
      */
     public function tickets()
     {
-        return $this->belongsToMany(Ticket::class, 'developer_ticket', 'ticket_id', 'developer_id')->withTimestamps();
+        return $this->hasMany(Ticket::class, 'developer_ticket', 'ticket_id', 'developer_id')->withTimestamps();
     }
 }

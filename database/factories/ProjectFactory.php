@@ -23,11 +23,25 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            'manager_id' => User::factory(),
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            // TODO find how to connect developers
-            'due_on' => $this->faker->dateTimeThisMonth,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'duedate' => $this->faker->dateTimeThisMonth,
         ];
+    }
+
+    /**
+     * Associates the project to a user(manager) and developers
+     *
+     * @var id $project that was just created
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Project $project) {
+            $manager = User::all()->random();
+            $project->manager_id = $manager->id;
+        })->afterCreating(function (Project $project) {
+            $users = User::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $project->developers()->sync($users);
+        });
     }
 }

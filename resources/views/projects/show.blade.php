@@ -7,7 +7,6 @@
             <p>DESCRIPTION: {{ $project->description }}</p>
         </div>
         <div>
-            <p>TYPE: {{ $project->type }}</p>
             <p>PRIORITY: {{ $project->priority }}</p>
             <p>STATUS: {{ $project->status }}</p>
             <p>DUE ON: {{ $project->duedate }}</p>

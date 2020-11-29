@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->foreignId('manager_id')->nullable();
             $table->string('title', 150);
-            $table->string('description');
+            $table->text('description');
             $table->enum('priority', ['low', 'medium', 'high'])->default('high');
             $table->enum('status', ['assigned', 'in_progress', 'submitted', 'completed'])->default('assigned');
             $table->timestamp('duedate');

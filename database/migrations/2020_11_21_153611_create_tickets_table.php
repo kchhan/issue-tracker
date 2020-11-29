@@ -16,9 +16,9 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->nullable();
-            $table->foreignId('developer_id');
+            $table->foreignId('developer_id')->nullable();
             $table->string('title', 100);
-            $table->string('description');
+            $table->text('description');
             $table->enum('type', ['bug', 'feature', 'other'])->default('bug');
             $table->enum('priority', ['low', 'medium', 'high'])->default('high');
             $table->enum('status', ['assigned', 'in_progress', 'submitted', 'completed'])->default('assigned');
