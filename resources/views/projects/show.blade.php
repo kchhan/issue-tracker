@@ -10,7 +10,7 @@
             <p>TYPE: {{ $project->type }}</p>
             <p>PRIORITY: {{ $project->priority }}</p>
             <p>STATUS: {{ $project->status }}</p>
-            <p>DUE ON: {{ $project->due_on }}</p>
+            <p>DUE ON: {{ $project->duedate }}</p>
             <p>CREATED AT: {{ $project->created_at }}</p>
             <p>UPDATED AT: {{ $project->updated_at }}</p>
         </div>

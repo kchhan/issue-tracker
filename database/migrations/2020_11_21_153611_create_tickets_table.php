@@ -15,13 +15,14 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id');
+            $table->foreignId('project_id')->nullable();
             $table->foreignId('developer_id');
             $table->string('title', 100);
             $table->string('description');
+            $table->enum('type', ['bug', 'feature', 'other'])->default('bug');
             $table->enum('priority', ['low', 'medium', 'high'])->default('high');
             $table->enum('status', ['assigned', 'in_progress', 'submitted', 'completed'])->default('assigned');
-            $table->timestamp('due_on');
+            $table->timestamp('duedate');
             $table->timestamps();
 
             $table->foreign('project_id')
@@ -30,39 +31,6 @@ class CreateTicketsTable extends Migration
             $table->foreign('developer_id')
                 ->references('id')
                 ->on('users');
-        });
-
-        Schema::create('developer_ticket', function (Blueprint $table) {
-            $table->primary(['ticket_id', 'developer_id']);
-            $table->foreignId('ticket_id');
-            $table->foreignId('developer_id');
-            $table->timestamps();
-
-            $table->foreign('ticket_id')
-                ->references('id')
-                ->on('tickets');
-
-            $table->foreign('developer_id')
-                ->references('id')
-                ->on('users');
-        });
-
-        Schema::create('project_ticket', function (Blueprint $table) {
-            $table->primary(['project_id', 'ticket_id']);
-            $table->foreignId('project_id');
-            $table->foreignId('ticket_id');
-            $table->timestamps();
-
-            $table->foreign('project_id')
-                ->references('id')
-                ->on('projects')
-                ->onDelete('cascade');
-
-            $table->foreign('ticket_id')
-                ->references('id')
-                ->on('tickets')
-                ->onDelete('cascade');
-
         });
     }
 
@@ -73,8 +41,6 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('developer_ticket');
-        Schema::dropIfExists('project_ticket');
         Schema::dropIfExists('tickets');
     }
 }

@@ -58,15 +58,15 @@
 
             <div class="inline">
                 <label
-                    for="due_on"
+                    for="duedate"
                     class="block text-sm font-bold mb-1 mx-4 text-gray-700"
                     >Due Date</label
                 >
                 <input
-                    type="date"
-                    name="due_on"
+                    type="datetime-local"
+                    name="duedate"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ old('due_on') }}"
+                    value="{{ old('duedate') }}"
                     required
                 />
             </div>

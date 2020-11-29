@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Validator;
 
 class TicketController extends Controller
 {
@@ -14,18 +17,26 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('tickets.index');
+        $tickets = Ticket::all();
+
+        return view('tickets.index', [
+            'tickets' => $tickets,
+        ]);
     }
 
-    /**
+    /*
      * Show the form for creating a new resource.
      *
-     * @param id project id
+     * @param id
      * @return \Illuminate\Http\Response
      */
-    public function create(Project $project)
+    public function create(Request $request)
     {
-        return view('tickets.create', $project);
+        $projects = Project::all();
+        // TODO: only send developers
+        $developers = User::all();
+
+        return view('tickets.create', compact('projects', 'developers'));
     }
 
     /**
@@ -36,7 +47,28 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'project_id' => ['required', 'exists:projects,id'],
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:3'],
+            'developer_id' => ['required', 'exists:users,id'],
+            'type' => 'required',
+            'priority' => 'required',
+            'duedate' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/tickets/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $ticket = new Ticket(request(['title', 'description', 'type', 'priority', 'duedate']));
+        $ticket->project_id = request('project_id');
+        $ticket->developer_id = request('developer_id');
+        $ticket->save();
+
+        return redirect('tickets');
     }
 
     /**
@@ -45,9 +77,13 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('tickets.show', [
+            'ticket' => $ticket,
+            'project' => Project::find($ticket->project_id),
+            'developer' => User::find($ticket->developer_id),
+        ]);
     }
 
     /**

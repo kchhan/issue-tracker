@@ -22,7 +22,7 @@ class Project extends Model
         'type',
         'status',
         'priority',
-        'due_on',
+        'duedate',
     ];
 
     /**

@@ -58,24 +58,6 @@
 
             <div class="inline">
                 <label
-                    for="type"
-                    class="block font-bold mb-1 mx-4 text-gray-700"
-                    >Type</label
-                >
-                <select
-                    name="type"
-                    class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ $project->type }}"
-                    required
-                >
-                    <option value="bug">Bug</option>
-                    <option value="feature">Feature</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-
-            <div class="inline">
-                <label
                     for="priority"
                     class="block font-bold mb-1 mx-4 text-gray-700"
                     >Priority</label
@@ -113,15 +95,15 @@
 
             <div class="inline">
                 <label
-                    for="due_on"
+                    for="duedate"
                     class="block text-sm font-bold mb-1 mx-4 text-gray-700"
                     >Due Date</label
                 >
                 <input
-                    type="date"
-                    name="due_on"
+                    type="datetime-local"
+                    name="duedate"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ $project->due_on }}"
+                    value="{{ \Carbon\Carbon::parse($project->duedate)->format('d/m/Y') }}"
                     required
                 />
             </div>

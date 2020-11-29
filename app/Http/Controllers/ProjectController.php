@@ -49,8 +49,7 @@ class ProjectController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
-            'developers' => 'exists:users,id',
-            'due_on' => 'required',
+            'duedate' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -59,7 +58,7 @@ class ProjectController extends Controller
                 ->withInput();
         }
 
-        $project = new Project(request(['title', 'description', 'due_on']));
+        $project = new Project(request(['title', 'description', 'duedate']));
         $project->manager_id = auth()->id();
         $project->save();
 
@@ -111,7 +110,7 @@ class ProjectController extends Controller
             'type' => 'required',
             'status' => 'required',
             'priority' => 'required',
-            'due_on' => ['required', 'after_or_equal:created_at'],
+            'duedate' => ['required', 'after_or_equal:created_at'],
         ]);
 
         if ($validator->fails()) {
@@ -120,7 +119,7 @@ class ProjectController extends Controller
                 ->withInput();
         }
 
-        $project->update(request(['title', 'description', 'type', 'status', 'priority', 'due_on']));
+        $project->update(request(['title', 'description', 'type', 'status', 'priority', 'duedate']));
 
         $project->developers()->sync(request('developers'));
 
@@ -135,6 +134,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        Project::destroy($project->id);
 
+        return redirect('projects');
     }
 }
