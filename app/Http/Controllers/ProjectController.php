@@ -77,7 +77,7 @@ class ProjectController extends Controller
     {
         return view('projects.show', [
             'project' => $project,
-            'developers' => $project->developers()->get(),
+            'developers' => $project->developers,
         ]);
     }
 

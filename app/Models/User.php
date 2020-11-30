@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -52,41 +54,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the role types of the user
+     * Return an array of users with the role of admin using spatie
      */
-    public function roles()
+    public function getAdmins()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return User::role('admin')->get();
     }
 
     /**
-     * Saves the user to a specific role type
-     * @var string
-     * $role->allowTo('edit_page')
+     * Return an array of users with the role of manager using spatie
      */
-    public function assignRole($role)
+    public function getManagers()
     {
-        if (is_string($role)) {
-            $role = Role::whereName($role)->firstOrFail();
-        }
-        // create a new role_user pivot table instance but do not drop the others
-        $this->roles()->sync($role, false);
+        return User::role('manager')->get();
     }
 
     /**
-     * Returns list of user's permissions
-     */
-    public function permissions()
-    {
-        return $this->roles->map->permissions->flatten()->pluck('name')->unique();
-    }
-
-    /**
-     * Return an array of users with the role of developer
+     * Return an array of users with the role of developer using spatie
      */
     public function getDevelopers()
     {
-        // TODO get all developers
+        return User::role('developer')->get();
     }
 
     /**
