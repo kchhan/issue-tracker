@@ -23,13 +23,16 @@ class RolesAndPermissionsSeeder extends Seeder
         // create permissions
         Permission::create(['name' => 'create projects']);
         Permission::create(['name' => 'view projects']);
-        Permission::create(['name' => 'edit projects']);
-        Permission::create(['name' => 'delete projects']);
+        Permission::create(['name' => 'edit own projects']);
+        Permission::create(['name' => 'delete own projects']);
 
         Permission::create(['name' => 'create tickets']);
         Permission::create(['name' => 'view tickets']);
-        Permission::create(['name' => 'edit tickets']);
+        Permission::create(['name' => 'edit any tickets']);
+        Permission::create(['name' => 'edit own tickets']);
         Permission::create(['name' => 'delete tickets']);
+        
+        Permission::create(['name' => 'edit user roles']);
 
         // create roles and assign created permissions
         $role1 = Role::create(['name' => 'admin']);
@@ -39,11 +42,12 @@ class RolesAndPermissionsSeeder extends Seeder
             ->givePermissionTo([
                 'create projects',
                 'view projects',
-                'edit projects',
+                'edit own projects',
+                'delete own projects',
 
                 'create tickets',
                 'view tickets',
-                'edit tickets',
+                'edit any tickets',
                 'delete tickets',
             ]);
 
@@ -52,7 +56,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'view projects',
 
                 'view tickets',
-                'edit tickets',
+                'edit own tickets',
 
             ]);
 

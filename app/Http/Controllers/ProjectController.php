@@ -9,6 +9,10 @@ use Validator;
 
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,6 +33,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Project::class);
+
         $developers = User::role('developer')->get();
 
         return view('projects.create', compact('developers'));
@@ -42,6 +48,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Project::class);
 
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'min:3'],
@@ -72,9 +79,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $manager = $project->manager;
         $developers = $project->developers;
 
-        return view('projects.show', compact('project', 'developers'));
+        return view('projects.show', compact('project', 'manager', 'developers'));
     }
 
     /**
@@ -85,6 +93,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         $developers = User::role('developer')->get();
 
         return view('projects.edit', compact('project', 'developers'));
@@ -99,6 +109,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
@@ -130,6 +142,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
+
         Project::destroy($project->id);
 
         return redirect('projects');

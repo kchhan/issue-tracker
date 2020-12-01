@@ -19,13 +19,16 @@
             <p>DEVELOPER: {{ $developer->name() }}</p>
         </div>
         <div>
+            @can('update')
             <a
                 href="/tickets/{{ $ticket->id }}/edit"
                 class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2"
                 >Edit ticket</a
             >
+            @endcan
         </div>
         <div>
+            @can('delete')
             <form method="POST" action="/tickets/{{ $ticket->id }}">
                 @csrf @method("DELETE")
                 <button
@@ -35,6 +38,7 @@
                     Delete ticket
                 </button>
             </form>
+            @endcan
         </div>
     </div>
 </x-app>

@@ -10,6 +10,11 @@ use Validator;
 
 class TicketController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +35,8 @@ class TicketController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize('create', Ticket::class);
+
         $projects = Project::all();
         $developers = User::role('developers')->get();
 
@@ -90,6 +97,8 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $project = $ticket->project;
         $developers = $project->developers;
 
@@ -105,6 +114,8 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
@@ -134,6 +145,8 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        $this->authorize('delete', $ticket);
+
         Ticket::destroy($ticket->id);
 
         return redirect('tickets');
