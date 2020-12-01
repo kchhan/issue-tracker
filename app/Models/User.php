@@ -54,30 +54,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Return an array of users with the role of admin using spatie
-     */
-    public function getAdmins()
-    {
-        return User::role('admin')->get();
-    }
-
-    /**
-     * Return an array of users with the role of manager using spatie
-     */
-    public function getManagers()
-    {
-        return User::role('manager')->get();
-    }
-
-    /**
-     * Return an array of users with the role of developer using spatie
-     */
-    public function getDevelopers()
-    {
-        return User::role('developer')->get();
-    }
-
-    /**
      * Return all projects that the user is a part of
      */
     public function projects()
@@ -90,7 +66,7 @@ class User extends Authenticatable
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'developer_ticket');
+        return $this->hasMany(Ticket::class);
     }
 
     /**

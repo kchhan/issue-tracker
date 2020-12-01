@@ -19,9 +19,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::all();
 
-        return view('tickets.index', [
-            'tickets' => $tickets,
-        ]);
+        return view('tickets.index', compact('tickets'));
     }
 
     /*
@@ -33,8 +31,7 @@ class TicketController extends Controller
     public function create(Request $request)
     {
         $projects = Project::all();
-        // TODO: only send developers
-        $developers = User::all();
+        $developers = User::role('developers')->get();
 
         return view('tickets.create', compact('projects', 'developers'));
     }
@@ -79,11 +76,10 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        return view('tickets.show', [
-            'ticket' => $ticket,
-            'project' => Project::find($ticket->project_id),
-            'developer' => User::find($ticket->developer_id),
-        ]);
+        $project = $ticket->project;
+        $developer = $ticket->developer;
+
+        return view('tickets.show', compact('ticket', 'project', 'developer'));
     }
 
     /**
@@ -94,12 +90,10 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        // TODO: only use developers assigned to given project
-        return view('tickets.edit', [
-            'ticket' => $ticket,
-            'project' => Project::find($ticket->project_id),
-            'developers' => User::all(),
-        ]);
+        $project = $ticket->project;
+        $developers = $project->developers;
+
+        return view('tickets.edit', compact('ticket', 'project', 'developers'));
     }
 
     /**

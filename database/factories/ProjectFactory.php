@@ -37,10 +37,10 @@ class ProjectFactory extends Factory
     public function configure()
     {
         return $this->afterMaking(function (Project $project) {
-            $manager = User::all()->random();
+            $manager = User::role('manager')->get()->random();
             $project->manager_id = $manager->id;
         })->afterCreating(function (Project $project) {
-            $users = User::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $users = User::role('developer')->get()->take(rand(1, 4))->pluck('id');
             $project->developers()->sync($users);
         });
     }

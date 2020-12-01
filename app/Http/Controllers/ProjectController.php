@@ -19,9 +19,7 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
 
-        return view('projects.index', [
-            'projects' => $projects,
-        ]);
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -31,10 +29,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        // TODO: only send developers
-        return view('projects.create', [
-            'developers' => User::all(),
-        ]);
+        $developers = User::role('developer')->get();
+
+        return view('projects.create', compact('developers'));
     }
 
     /**
@@ -75,10 +72,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show', [
-            'project' => $project,
-            'developers' => $project->developers,
-        ]);
+        $developers = $project->developers;
+
+        return view('projects.show', compact('project', 'developers'));
     }
 
     /**
@@ -89,8 +85,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        // TODO: only use developers assigned to project
-        $developers = User::all();
+        $developers = User::role('developer')->get();
 
         return view('projects.edit', compact('project', 'developers'));
     }
