@@ -6,7 +6,7 @@ use App\Models\Project;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -37,8 +37,8 @@ class TicketController extends Controller
     {
         $this->authorize('create', Ticket::class);
 
-        $projects = Project::all();
-        $developers = User::role('developers')->get();
+        $projects = Project::where('manager_id', auth()->user()->id)->get();
+        $developers = User::role('developer')->get();
 
         return view('tickets.create', compact('projects', 'developers'));
     }

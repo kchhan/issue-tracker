@@ -27,7 +27,9 @@ class TicketPolicy
      * @return mixed
      */
     public function viewAny(User $user)
-    {}
+    {
+        //
+    }
 
     /**
      * Determine whether the user can view the ticket.
@@ -37,7 +39,9 @@ class TicketPolicy
      * @return mixed
      */
     public function view(User $user, Ticket $ticket)
-    {}
+    {
+        //
+    }
 
     /**
      * Determine whether the user can create a ticket.
@@ -59,12 +63,12 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        if ($user->can('edit own tickets')) {
-            return $user->id === $ticket->developer->id;
-        }
-
-        if ($user->can('edit any tickets')) {
-            return true;
+        if ($user->can('edit tickets')) {
+            if ($user->id === $ticket->developer->id) {
+                return true;
+            } elseif ($user->id === $ticket->project->manager_id) {
+                return true;
+            }
         }
     }
 
@@ -77,8 +81,9 @@ class TicketPolicy
      */
     public function delete(User $user, Ticket $ticket)
     {
-        return $user->can('delete tickets');
-
+        if ($user->can('delete tickets')) {
+            return $user->id === $ticket->project->manager_id;
+        }
     }
 
     /**

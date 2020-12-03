@@ -1,0 +1,1 @@
+<x-app title="Edit User ID#{{ $user->id }}" color="green">tesxt</x-app>

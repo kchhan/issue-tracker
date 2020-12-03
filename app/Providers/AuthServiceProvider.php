@@ -19,8 +19,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        // User::class => UserPolicy::class,
         Project::class => ProjectPolicy::class,
         Ticket::class => TicketPolicy::class,
+        
 
     ];
 
@@ -35,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // Allows an admin to perform any function
         Gate::before(function (User $user, $ablility) {
-            return $user->hasRole('admin') ? true : null;
+            return $user->hasRole('super_admin') ? true : null;
         });
 
     }
