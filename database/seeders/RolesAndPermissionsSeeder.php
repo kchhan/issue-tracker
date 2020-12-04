@@ -37,6 +37,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
         Permission::create(['name' => 'edit user roles']);
 
+        Permission::create(['name' => 'edit profile']);
+
         // create roles and assign created permissions
         $role1 = Role::create(['name' => 'super_admin']);
         $role1->givePermissionTo(Permission::all());
@@ -54,6 +56,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'delete any tickets',
 
                 'edit user roles',
+                'edit profile'
             ]);
 
         $role3 = Role::create(['name' => 'manager'])
@@ -67,6 +70,8 @@ class RolesAndPermissionsSeeder extends Seeder
                 'view tickets',
                 'edit tickets',
                 'delete tickets',
+
+                'edit profile',
             ]);
 
         $role4 = Role::create(['name' => 'developer'])
@@ -75,6 +80,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
                 'view tickets',
                 'edit tickets',
+
+                'edit profile',
             ]);
 
         $role5 = Role::create(['name' => 'guest'])

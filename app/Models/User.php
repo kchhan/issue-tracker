@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -22,7 +21,6 @@ class User extends Authenticatable
         'last_name',
         'username',
         'avatar',
-        'email',
         'password',
     ];
 
@@ -58,7 +56,7 @@ class User extends Authenticatable
      */
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, 'developer_project', 'project_id', 'developer_id');
     }
 
     /**
@@ -66,7 +64,7 @@ class User extends Authenticatable
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'developer_id');
     }
 
     /**
@@ -77,5 +75,13 @@ class User extends Authenticatable
         $path = route('profile', $this->username);
 
         return $append ? "{$path}/{$append}" : $path;
+    }
+
+    /**
+     * Return the avatar path
+     */
+    public function getAvatarAttribute($value)
+    {
+        return asset($value ?: '/images/default-avatar.jpeg');
     }
 }

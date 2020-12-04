@@ -40,7 +40,7 @@ class ProjectFactory extends Factory
             $manager = User::role('manager')->get()->random();
             $project->manager_id = $manager->id;
         })->afterCreating(function (Project $project) {
-            $users = User::role('developer')->get()->take(rand(1, 4))->pluck('id');
+            $users = User::role('developer')->get()->take(rand(1, 8))->pluck('id');
             $project->developers()->sync($users);
         });
     }

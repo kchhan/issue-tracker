@@ -7,6 +7,7 @@
         <th>Name</th>
         <th>Username</th>
         <th>Role</th>
+        <th>View Profile</th>
         @can('edit user roles')
         <th>Edit Role</th>
         @endcan
@@ -16,11 +17,13 @@
       @foreach ($users as $user)
       <tr>
         <td>{{ $user->id }}</td>
-        <td>{{ $user->avatar }}</td>
+        <td><img src="{{ $user->avatar }}" alt="Avatar" width="60"></td>
         <td>{{ $user->name() }}</td>
         <td>{{ $user->username }}</td>
         <td>{{ $user->getRoleNames()->first() }}</td>
-        @can('update', $user)
+        <td><a href="/profiles/{{ $user->username }}"
+            class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">View</a></td>
+        @can('updateRole', $user)
 
         @if( $user->id === 1)
         <td></td>
@@ -30,7 +33,7 @@
             class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">EDIT</a>
         </td>
         @endif
-        
+
         @endcan
       </tr>
       @endforeach

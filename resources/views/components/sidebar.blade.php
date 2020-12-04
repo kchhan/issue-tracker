@@ -12,8 +12,7 @@
                 <a href="{{ route('projects') }}"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
                     <i class="fas fa-tasks pr-0 md:pr-3"></i><span
-                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">My
-                        Projects</span>
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">                      Projects List</span>
                 </a>
             </li>
 
@@ -21,8 +20,8 @@
                 <a href="{{ route('tickets') }}"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-orange-500">
                     <i class="fas fa-receipt pr-0 md:pr-3"></i><span
-                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">My
-                        Tickets</span>
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">
+                        Tickets List</span>
                 </a>
             </li>
 
@@ -38,15 +37,15 @@
                 <a href="{{ route('users') }}"
                     class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
                     <i class="fas fa-users pr-0 md:pr-3"></i><span
-                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Users</span>
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Users List</span>
                 </a>
             </li>
 
             <li class="mr-3 flex-1">
-                <a href="{{ route('profile', auth()->user()) }}"
+                <a href="{{ route('profile', auth()->user()->username) }}"
                     class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500">
                     <i class="fa fa-user pr-0 md:pr-3"></i><span
-                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Profile</span>
+                        class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Your Profile</span>
                 </a>
             </li>
             <li class="mr-3 flex-1">

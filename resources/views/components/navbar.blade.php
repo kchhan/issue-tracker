@@ -35,9 +35,9 @@
                 </li>
 
                 <li class="flex flex-1 md:flex-none md:mr-3">
-                    <img src="images/default-avatar.jpeg" alt="" class="rounded" width="40" />
+                    <img src="{{ auth()->user()->avatar }}" alt="User's Avatar" class="rounded" width="40" />
                     <a class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                        href="/profiles/{user:username}">{{ auth()->user()->first_name }}</a>
+                        href="{{ route('profile', auth()->user()->username) }}">{{ auth()->user()->first_name }}</a>
                 </li>
             </ul>
         </div>

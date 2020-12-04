@@ -50,9 +50,23 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function updateRole(User $user)
     {
         return $user->can('edit user roles');
+    }
+
+    /**
+     * Determine whether the user can update the profile.
+     *
+     * @param  \App\Models\User  $user  current user
+     * @param  \App\Models\User  $model selected profile model
+     * @return mixed
+     */
+    public function updateProfile(User $user, User $model)
+    {
+        if ($user->can('edit profile')) {
+            return $user->id === $model->id;
+        }
     }
 
     /**
