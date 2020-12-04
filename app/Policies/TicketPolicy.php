@@ -28,7 +28,7 @@ class TicketPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->can('view tickets');
     }
 
     /**
@@ -40,7 +40,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket)
     {
-        //
+        return $user->can('view tickets', $ticket);
     }
 
     /**
@@ -70,6 +70,8 @@ class TicketPolicy
                 return true;
             }
         }
+
+        return $user->can('edit any tickets');
     }
 
     /**
@@ -84,6 +86,8 @@ class TicketPolicy
         if ($user->can('delete tickets')) {
             return $user->id === $ticket->project->manager_id;
         }
+
+        return $user->can('delete any tickets');
     }
 
     /**

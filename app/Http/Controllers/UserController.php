@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -15,7 +17,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
 
         return view('users.index', compact('users'));
     }
@@ -60,9 +61,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
 
+        $roles = Role::all()->except(['id' => 1]);
 
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -72,9 +75,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        // cannot change super_admin
+        if ($user->id === 1) {
+            return redirect('users');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'role' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/users/{user}/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user->syncRoles([request('role')]);
+
+        return redirect('users');
     }
 
     /**

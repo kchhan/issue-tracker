@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth');
     }
 
     /**
@@ -21,6 +21,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Project::class);
+
         $projects = Project::all();
 
         return view('projects.index', compact('projects'));
@@ -79,6 +81,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $this->authorize('view', $project);
+
         $manager = $project->manager;
         $developers = $project->developers;
 

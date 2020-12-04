@@ -12,7 +12,7 @@ class TicketController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth');
     }
 
     /**
@@ -22,6 +22,8 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Ticket::class);
+
         $tickets = Ticket::all();
 
         return view('tickets.index', compact('tickets'));
@@ -51,6 +53,8 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Ticket::class);
+
         $validator = Validator::make($request->all(), [
             'project_id' => ['required', 'exists:projects,id'],
             'title' => ['required', 'min:3'],
@@ -83,6 +87,8 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
+        $this->authorize('view', $ticket);
+
         $project = $ticket->project;
         $developer = $ticket->developer;
 

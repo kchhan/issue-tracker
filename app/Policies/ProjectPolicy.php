@@ -28,7 +28,7 @@ class ProjectPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->can('view projects');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        //
+        return $user->can('view projects', $project);
     }
 
 
@@ -66,6 +66,8 @@ class ProjectPolicy
         if ($user->can('edit projects')) {
             return $user->id === $project->manager_id;
         }
+
+        return $user->can('edit any tickets');
     }
 
     /**
@@ -80,6 +82,8 @@ class ProjectPolicy
         if ($user->can('delete projects')) {
             return $user->id == $project->manager_id;
         }
+
+        return $user->can('delete any projects');
     }
 
     /**
