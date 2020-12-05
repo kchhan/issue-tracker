@@ -56,13 +56,13 @@ class TicketController extends Controller
         $this->authorize('create', Ticket::class);
 
         $validator = Validator::make($request->all(), [
-            'project_id' => ['required', 'exists:projects,id'],
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-            'developer_id' => ['required', 'exists:users,id'],
-            'type' => 'required',
-            'priority' => 'required',
-            'duedate' => 'required',
+            'project_id' => ['numeric', 'required', 'exists:projects,id'],
+            'title' => ['string', 'required', 'min:3', 'max:255'],
+            'description' => ['string', 'required', 'min:3'],
+            'developer_id' => ['numeric', 'required', 'exists:users,id'],
+            'type' => ['required'],
+            'priority' => ['required'],
+            'duedate' => ['date', 'required', 'after:now'],
         ]);
 
         if ($validator->fails()) {
@@ -123,24 +123,25 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $validator = Validator::make($request->all(), [
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-            'developer' => 'exists:users,id',
-            'type' => 'required',
-            'status' => 'required',
-            'priority' => 'required',
-            'duedate' => ['required', 'after_or_equal:created_at'],
+            'title' => ['string', 'required', 'min:3', 'max:255'],
+            'description' => ['string', 'required', 'min:3'],
+            'developer' => ['numeric', 'required', 'exists:users,id'],
+            'type' => ['required'],
+            'status' => ['required'],
+            'priority' => ['required'],
+            'duedate' => ['date', 'required', 'after_or_equal:created_at'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('/tickets/{$ticket->id}/edit')
+            return redirect("/tickets/{$ticket->id}/edit")
                 ->withErrors($validator)
                 ->withInput();
         }
 
         $ticket->update(request(['title', 'description', 'type', 'status', 'priority', 'duedate']));
+        $ticket->developer_id = request('developer');
 
-        return redirect("/tickets/" . $ticket->id);
+        return redirect("/tickets/{$ticket->id}");
     }
 
     /**

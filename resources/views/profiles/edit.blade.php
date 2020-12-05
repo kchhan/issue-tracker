@@ -26,11 +26,31 @@
       </div>
 
       <div class="inline">
-        <label for="avatar" class="block font-bold mb-1 mx-4 text-gray-700">Avatar</label>
-        <input type="file" name="avatar"
+        <label for="email" class="block font-bold mb-1 mx-4 text-gray-700">Email</label>
+        <input type="email" name="email"
           class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-          required />
-        <img src="{{ $user->avatar }}" alt="Current Avatar" width="40">
+          value="{{ old('email', $user->email) }}" required />
+      </div>
+
+      <div class="inline">
+        <label for="avatar" class="block font-bold mb-1 mx-4 text-gray-700">Avatar</label>
+        <div class="flex">
+          <input type="file" name="avatar"
+            class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" />
+          <img src="{{ $user->avatar }}" alt="Current Avatar" width="40">
+        </div>
+      </div>
+
+      <div class="inline">
+        <label for="password" class="block font-bold mb-1 mx-4 text-gray-700">Password</label>
+        <input type="text" name="password"
+          class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" />
+      </div>
+
+      <div class="inline">
+        <label for="password_confirmation" class="block font-bold mb-1 mx-4 text-gray-700">Confirm Password</label>
+        <input type="text" name="confirm_password"
+          class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" />
       </div>
 
       <div class="block">

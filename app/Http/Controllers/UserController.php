@@ -6,6 +6,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -64,8 +65,9 @@ class UserController extends Controller
         $this->authorize('updateRole', $user);
 
         $roles = Role::all()->except(['id' => 1]);
+        $userRole = DB::table('model_has_roles')->where('model_id', $user->id)->first();
 
-        return view('users.edit', compact('user', 'roles'));
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**

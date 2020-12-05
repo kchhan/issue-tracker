@@ -53,9 +53,9 @@ class ProjectController extends Controller
         $this->authorize('create', Project::class);
 
         $validator = Validator::make($request->all(), [
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-            'duedate' => 'required',
+            'title' => ['string', 'required', 'min:3', 'max:255'],
+            'description' => ['string', 'required', 'min:3'],
+            'duedate' => ['date', 'required', 'after:today'],
         ]);
 
         if ($validator->fails()) {
@@ -116,26 +116,25 @@ class ProjectController extends Controller
         $this->authorize('update', $project);
 
         $validator = Validator::make($request->all(), [
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-            'developers' => 'exists:users,id',
-            'type' => 'required',
-            'status' => 'required',
-            'priority' => 'required',
-            'duedate' => ['required', 'after_or_equal:created_at'],
+            'title' => ['string', 'required', 'min:3'],
+            'description' => ['string', 'required', 'min:3'],
+            'developers' => ['array', 'required', 'exists:users,id'],
+            'status' => ['required'],
+            'priority' => ['required'],
+            'duedate' => ['date', 'required', 'after_or_equal:created_at'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('/projects/{$project->id}/edit')
+            return redirect("/projects/{$project->id}/edit")
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $project->update(request(['title', 'description', 'type', 'status', 'priority', 'duedate']));
+        $project->update(request(['title', 'description', 'status', 'priority', 'duedate']));
 
         $project->developers()->sync(request('developers'));
 
-        return redirect("/projects/" . $project->id);
+        return redirect("/projects/{$project->id}");
     }
 
     /**

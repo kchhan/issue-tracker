@@ -10,7 +10,10 @@
           class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
           value="{{ old('role') }}" required>
           @foreach ($roles as $role)
-          <option value="{{ $role->id }}">{{ $role->name }}</option>
+          <option value="{{ $role->id }}" @if ($role->id === $userRole->role_id)
+            selected
+            @endif
+            >{{ $role->name }}</option>
           @endforeach
         </select>
       </div>

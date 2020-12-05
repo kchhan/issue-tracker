@@ -22,9 +22,12 @@
                 <label for="developers" class="block font-bold mb-1 mx-4 text-gray-700">Assigned Developers</label>
                 <select name="developers[]"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ old('developers') }}" multiple required>
+                    multiple required>
                     @foreach ($developers as $developer)
-                    <option value="{{ $developer->id }}">{{ $developer->name() }}</option>
+                    <option value="{{ $developer->id }}" @if($project->developers->contains($developer->id)) selected
+                        @endif
+                        >{{ $developer->name() }}
+                    </option>
                     @endforeach
                 </select>
             </div>
@@ -34,9 +37,15 @@
                 <select name="priority"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
                     value="{{ $project->priority }}" required>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
+                    <option value="high" @if($project->priority ==="high") selected @endif>
+                        High
+                    </option>
+                    <option value="medium" @if($project->priority ==="medium") selected @endif>
+                        Medium
+                    </option>
+                    <option value="low" @if($project->priority ==="low") selected @endif>
+                        Low
+                    </option>
                 </select>
             </div>
 
@@ -45,10 +54,18 @@
                 <select name="status"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
                     value="{{ $project->status }}" required>
-                    <option value="assigned">Assigned</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="submitted">Submitted</option>
-                    <option value="completed">Completed</option>
+                    <option value="assigned" @if($project->status ==="assigned") selected @endif>
+                        Assigned
+                    </option>
+                    <option value="in_progress" @if($project->status ==="in_progress") selected @endif>
+                        In Progress
+                    </option>
+                    <option value="submitted" @if($project->status ==="submitted") selected @endif>
+                        Submitted
+                    </option>
+                    <option value="completed" @if($project->status ==="completed") selected @endif>
+                        Completed
+                    </option>
                 </select>
             </div>
 
