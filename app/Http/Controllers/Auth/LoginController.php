@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * On login use the client's ip address to set the timezone;
+     * If not use PST
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        $ipInfo = Http::get('http://ip-api.com/json/' . $request->ip());
+        $timezone = $ipInfo->json()['timezone'] ?? 'America/Los_Angeles';
+        $user->update(['timezone' => $timezone]);
     }
 }

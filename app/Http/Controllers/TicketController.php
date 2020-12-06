@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class TicketController extends Controller
 {
@@ -107,8 +108,9 @@ class TicketController extends Controller
 
         $project = $ticket->project;
         $developers = $project->developers;
+        $duedate = Carbon::createFromTimestamp($ticket->duedate)->format("Y-m-d\TH:i:s");
 
-        return view('tickets.edit', compact('ticket', 'project', 'developers'));
+        return view('tickets.edit', compact('ticket', 'project', 'developers', 'duedate'));
     }
 
     /**

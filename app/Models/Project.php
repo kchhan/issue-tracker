@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Project extends Model
 {
@@ -24,6 +25,34 @@ class Project extends Model
         'priority',
         'duedate',
     ];
+
+     /**
+     * Formats the date before sending it to views
+     * Exception: edit views need a different format for datetime-local input field
+     * @param date
+     */
+    public function getDuedateAttribute($value)
+    {
+        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+    }
+
+    /**
+     * Formats the date before sending it to views
+     * @param date
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+    }
+
+    /**
+     * Formats the Timestamp before sending it to views
+     * @param date
+     */
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+    }
 
     /**
      * Defines relationship mangager_project

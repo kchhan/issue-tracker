@@ -18,15 +18,21 @@
             </div>
 
             <div class="inline">
-                <label for="developers" class="block font-bold mb-1 mx-4 text-gray-700">Assigned Developers</label>
-                <select name="developers[]"
-                    class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ old('developers') }}" multiple required>
-                    @foreach ($developers as $developer)
-                    <option value="{{ $developer->id }}">{{ $developer->name() }}</option>
-                    @endforeach
-                </select>
+                <label for="developers[]" class="block font-bold mb-1 mx-4 text-gray-700">Assigned Developers</label>
+                <div class="flex flex-col">
+                    @forelse ($developers as $developer)
+                    <label class="inline-block mx-2">
+                        <input type="checkbox" name="developers[]" class="mx-2" value="{{ $developer->id }}">
+                        {{ $developer->name() }}
+                    </label>
+                    @empty
+                    <label>
+                        <input type="checkbox" disabled>There are no developers
+                    </label>
+                    @endforelse
+                </div>
             </div>
+
 
             <div class="inline">
                 <label for="duedate" class="block text-sm font-bold mb-1 mx-4 text-gray-700">Due Date</label>

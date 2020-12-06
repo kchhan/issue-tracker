@@ -12,7 +12,6 @@
                     value="{{ old('title', $project->title) }}" disabled />
             </div>
 
-
             <div class="inline">
                 <label for="title" class="block font-bold mb-1 mx-4  text-gray-700">Title</label>
                 <input type="text" name="title"
@@ -46,13 +45,13 @@
                 <select name="type"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
                     value="{{ $ticket->type }}" required>
-                    <option value="bug" @if($ticket->type ==="bug") selected @endif>
+                    <option value="bug" @if($ticket->type === "bug") selected @endif>
                         Bug
                     </option>
-                    <option value="feature" @if($ticket->type ==="feature") selected @endif>
+                    <option value="feature" @if($ticket->type === "feature") selected @endif>
                         Feature
                     </option>
-                    <option value="other" @if($ticket->type ==="other") selected @endif>
+                    <option value="other" @if($ticket->type === "other") selected @endif>
                         Other
                     </option>
                 </select>
@@ -63,13 +62,13 @@
                 <select name="priority"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
                     value="{{ $ticket->priority }}" required>
-                    <option value="high" @if($ticket->priority ==="high") selected @endif>
+                    <option value="high" @if($ticket->priority === "high") selected @endif>
                         High
                     </option>
-                    <option value="medium" @if($ticket->priority ==="medium") selected @endif>
+                    <option value="medium" @if($ticket->priority === "medium") selected @endif>
                         Medium
                     </option>
-                    <option value="low" @if($ticket->priority ==="low") selected @endif>
+                    <option value="low" @if($ticket->priority === "low") selected @endif>
                         Low
                     </option>
                 </select>
@@ -80,16 +79,16 @@
                 <select name="status"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
                     value="{{ $ticket->status }}" required>
-                    <option value="assigned" @if($ticket->status ==="assigned") selected @endif>
+                    <option value="assigned" @if($ticket->status === "assigned") selected @endif>
                         Assigned
                     </option>
-                    <option value="in_progress" @if($ticket->status ==="in_progress") selected @endif>
+                    <option value="in_progress" @if($ticket->status === "in_progress") selected @endif>
                         In Progress
                     </option>
-                    <option value="submitted" @if($ticket->status ==="submitted") selected @endif>
+                    <option value="submitted" @if($ticket->status === "submitted") selected @endif>
                         Submitted
                     </option>
-                    <option value="completed" @if($ticket->status ==="completed") selected @endif>
+                    <option value="completed" @if($ticket->status === "completed") selected @endif>
                         Completed
                     </option>
                 </select>
@@ -99,7 +98,7 @@
                 <label for="duedate" class="block text-sm font-bold mb-1 mx-4 text-gray-700">Due Date</label>
                 <input type="datetime-local" name="duedate"
                     class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2"
-                    value="{{ \Carbon\Carbon::parse($ticket->duedate)->format('d/m/Y') }}" required />
+                    value="{{ $duedate }}" required />
             </div>
 
             <div class="block">
