@@ -44,6 +44,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Hashes the password before storing
+     * @param string $value
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
      * Returns users full name
      */
     public function name()

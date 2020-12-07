@@ -155,7 +155,7 @@ class TicketController extends Controller
     {
         $this->authorize('delete', $ticket);
 
-        Ticket::destroy($ticket->id);
+        $ticket->delete();
 
         return redirect('tickets');
     }

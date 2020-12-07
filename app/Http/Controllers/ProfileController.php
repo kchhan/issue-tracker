@@ -54,7 +54,7 @@ class ProfileController extends Controller
         $this->authorize('updateProfile', $user);
 
         $validator = Validator::make($request->all(), [
-            'first_name' => ['string', 'required', 'min:3', 'max"255', 'alpha_dash'],
+            'first_name' => ['string', 'required', 'min:3', 'max:255', 'alpha_dash'],
             'last_name' => ['string', 'required', 'min:3', 'max:255', 'alpha_dash'],
             'username' => [
                 'string',
@@ -73,20 +73,27 @@ class ProfileController extends Controller
                 Rule::unique('users')->ignore($user),
             ],
             'avatar' => ['file'],
-            'password' => ['string', 'min:8', 'max:255', 'confirmed']
+            'password' => ['string', 'min:8', 'max:255', 'confirmed', 'nullable']
         ]);
 
         if ($validator->fails()) {
-            return redirect('/profiles/{user:username}/edit')
+            return redirect("/profiles/{$user->username}/edit")
                 ->withErrors($validator)
                 ->withInput();
         }
 
         $attributes = request(['first_name', 'last_name', 'username', 'email']);
-        $attributes['avatar'] = request('avatar')->store('avatars');
+
+        if (request('avatar')) {
+            $attributes['avatar'] = request('avatar')->store('avatars');
+        }
+
+        if (request('password')) {
+            $attributes['password'] = request('password');
+        }
 
         $user->update($attributes);
 
-        return redirect('profile');
+        return redirect("/profiles/$user->username");
     }
 }

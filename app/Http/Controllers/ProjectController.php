@@ -148,8 +148,7 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
-        Project::destroy($project->id);
-        
+        $project->delete();
 
         return redirect('projects');
     }

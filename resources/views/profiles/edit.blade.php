@@ -43,13 +43,13 @@
 
       <div class="inline">
         <label for="password" class="block font-bold mb-1 mx-4 text-gray-700">Password</label>
-        <input type="text" name="password"
+        <input type="password" name="password"
           class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" />
       </div>
 
       <div class="inline">
         <label for="password_confirmation" class="block font-bold mb-1 mx-4 text-gray-700">Confirm Password</label>
-        <input type="text" name="confirm_password"
+        <input type="password" name="password_confirmation"
           class="shadow appearance-none border rounded mx-4 p-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" />
       </div>
 
