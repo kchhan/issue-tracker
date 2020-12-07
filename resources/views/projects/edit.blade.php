@@ -20,12 +20,22 @@
 
             <div class="inline">
                 <label for="developers[]" class="block font-bold mb-1 mx-4 text-gray-700">Assigned Developers</label>
+                <small class="mb-1 mx-6">If disabled, the developer has an outstanding ticket on the project and cannot
+                    be removed</small>
                 <div class="flex flex-col">
                     @forelse ($developers as $developer)
                     <label class="inline-block mx-2">
                         <input type="checkbox" name="developers[]" class="mx-2" value="{{ $developer->id }}"
                             @if($project->developers->contains($developer->id)) checked
-                        @endif>
+                        @endif
+
+                        @foreach ($project->tickets as $ticket)
+                        @if($ticket->status !== 'Completed' && $ticket->developer_id === $developer->id)
+                        disabled
+                        @endif
+                        @endforeach
+                        >
+
                         {{ $developer->name() }}
                     </label>
                     @empty

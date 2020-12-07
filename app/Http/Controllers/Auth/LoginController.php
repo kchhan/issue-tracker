@@ -44,10 +44,10 @@ class LoginController extends Controller
      * On login use the client's ip address to set the timezone;
      * If not use PST
      */
-    protected function authenticated(Request $request, $user)
-    {
-        $ipInfo = Http::get('http://ip-api.com/json/' . $request->ip());
-        $timezone = $ipInfo->json()['timezone'] ?? 'America/Los_Angeles';
-        $user->update(['timezone' => $timezone]);
-    }
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     $ipInfo = Http::get('http://ip-api.com/json/' . $request->ip());
+    //     $timezone = $ipInfo->json()['timezone'] ?? 'America/Los_Angeles';
+    //     $user->update(['timezone' => $timezone]);
+    // }
 }

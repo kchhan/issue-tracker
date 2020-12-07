@@ -6,7 +6,6 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Carbon;
 
 class ProjectController extends Controller
 {
@@ -101,7 +100,7 @@ class ProjectController extends Controller
         $this->authorize('update', $project);
 
         $developers = User::role('developer')->get();
-        $duedate = Carbon::createFromTimestamp($project->duedate)->format("Y-m-d\TH:i:s");
+        $duedate = $project->duedate->format("Y-m-d\TH:i:s");
 
         return view('projects.edit', compact('project', 'developers', 'duedate'));
     }
@@ -150,6 +149,7 @@ class ProjectController extends Controller
         $this->authorize('delete', $project);
 
         Project::destroy($project->id);
+        
 
         return redirect('projects');
     }

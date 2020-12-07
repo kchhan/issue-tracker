@@ -33,7 +33,7 @@ class Project extends Model
      */
     public function getDuedateAttribute($value)
     {
-        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
     }
 
     /**
@@ -42,7 +42,7 @@ class Project extends Model
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
     }
 
     /**
@@ -51,7 +51,7 @@ class Project extends Model
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::createFromTimestamp($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
     }
 
     /**
@@ -76,6 +76,6 @@ class Project extends Model
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'developer_ticket', 'ticket_id', 'developer_id')->withTimestamps();
+        return $this->hasMany(Ticket::class);
     }
 }
