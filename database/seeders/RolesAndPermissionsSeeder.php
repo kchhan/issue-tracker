@@ -56,7 +56,8 @@ class RolesAndPermissionsSeeder extends Seeder
                 'delete any tickets',
 
                 'edit user roles',
-                'edit profile'
+                'edit profile',
+
             ]);
 
         $role3 = Role::create(['name' => 'manager'])

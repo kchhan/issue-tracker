@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-    Route::post('/notifications', [NotificationController::class, 'store']);
+    Route::patch('/notifications/{notification}', [NotificationController::class, 'update']);
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/{user}', [UserController::class, 'show']);

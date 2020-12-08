@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Show the notification list.
      * Notifications accessed by $user->unreadNotificatiosn
@@ -18,11 +21,15 @@ class NotificationController extends Controller
     /**
      * Mark a notification as read
      *
-     * @param  \Illuminate\Http\Request  $request
-     * 
+     * @param  \Illuminate\Notifications\DatabaseNotification $notification
      */
-    public function store(User $user)
-    {
-        // $this->authorize('store', $notification)
+    public function update($notification)
+    {        
+        auth()->user()
+            ->unreadNotifications
+            ->where('id', $notification)
+            ->markAsRead();
+
+        return back();
     }
 }
