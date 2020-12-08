@@ -11,14 +11,15 @@ class ProjectAndTicketNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
+     * @param (current_user, project/ticket instance, project/ticket type, message type) 
      * @return void
      */
-    public function __construct($user, $item, $type)
+    public function __construct($user, $item, $item_type, $method)
     {
         $this->user = $user;
         $this->item = $item;
-        $this->type = $type;
+        $this->item_type = $item_type;
+        $this->method = $method;
     }
 
     /**
@@ -40,16 +41,19 @@ class ProjectAndTicketNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        if ($this->type === "Assign Project") {
-            $message = "You have been assigned to Project: {$this->item->title} (#ID: {$this->item->id})";
+        if ($this->method === "assign") {
+            $message = "{$this->user->name()} has assigned you to {$this->item_type}: {$this->item->title} (#ID: {$this->item->id})";
         }
 
-        if ($this->type === "Assign Ticket") {
-            $message = "You have been assigned to Ticket: {$this->item->title} (#ID: {$this->item->id})";
+        if ($this->method === "update") {
+            $message = "{$this->user->name()} has updated the {$this->item_type}: #ID: {$this->item->id} to {$this->item->status}";
+        }
+
+        if ($this->method === "delete") {
+            $message = "{$this->user->name()} has deleted the {$this->item_type}: {$this->item->title}";
         }
 
         return [
-            'sender' => $this->user->name(),
             'message' => $message,
         ];
     }

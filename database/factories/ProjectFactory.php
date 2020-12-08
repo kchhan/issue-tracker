@@ -46,7 +46,7 @@ class ProjectFactory extends Factory
             $project->developers()->sync($users);
 
             foreach ($project->developers as $developer) {
-                $developer->notify(new ProjectAndTicketNotification(User::all()->first() , $project, 'Assign Project'));
+                $developer->notify(new ProjectAndTicketNotification(User::all()->first(), $project, 'Project', 'assign'));
             }
         });
     }

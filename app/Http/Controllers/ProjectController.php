@@ -71,8 +71,9 @@ class ProjectController extends Controller
 
         $project->developers()->sync(request('developers'));
 
+        // notify all assigned developers that they are part of a new project
         foreach ($project->developers as $developer) {
-            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $project, 'Assign Project'));
+            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $project, 'Project', 'assign'));
         }
 
         return redirect('projects');
@@ -140,6 +141,11 @@ class ProjectController extends Controller
 
         $project->developers()->sync(request('developers'));
 
+        // notify the developers that the manager has updated the project
+        foreach ($project->developers as $developer) {
+            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $project, 'Project', 'update'));
+        }
+
         return redirect("/projects/{$project->id}");
     }
 
@@ -153,9 +159,12 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
+        // notify the developers that the manager has deleted the project
+        foreach ($project->developers as $developer) {
+            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $project, 'Project', 'delete'));
+        }
+
         $project->delete();
-
-
 
         return redirect('projects');
     }

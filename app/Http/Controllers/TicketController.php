@@ -77,9 +77,8 @@ class TicketController extends Controller
         $ticket->developer_id = request('developer_id');
         $ticket->save();
 
-        foreach ($ticket->developer as $developer) {
-            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Assign Ticket'));
-        }
+        // developer gets a notification that he or she has been assigned to a ticket
+        $ticket->developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Ticket', 'Assign'));
 
         return redirect('tickets');
     }
@@ -147,6 +146,9 @@ class TicketController extends Controller
         $ticket->update(request(['title', 'description', 'type', 'status', 'priority', 'duedate']));
         $ticket->developer_id = request('developer');
 
+        // manager gets a notification that the ticket has been updated
+        $ticket->project->manager->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Ticket', 'update'));
+
         return redirect("/tickets/{$ticket->id}");
     }
 
@@ -159,6 +161,8 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         $this->authorize('delete', $ticket);
+
+        $ticket->developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Ticket', 'delete'));
 
         $ticket->delete();
 
