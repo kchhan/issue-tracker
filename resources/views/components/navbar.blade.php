@@ -25,7 +25,7 @@
         <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
             <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                 <li class="flex-1 md:flex-none md:mr-3">
-                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                    <a class="inline-block text-gray-600 no-underlirne hover:text-gray-200 hover:text-underline py-2 px-4"
                         href="https://github.com/kchhan/issue-tracker" target="_blank">
                         <i class="fab fa-github fa-2x"></i>
                     </a>
@@ -33,7 +33,12 @@
                 <li class="flex-1 md:flex-none md:mr-3">
                     <a class="inline-block py-2 px-4 text-white no-underline" href="/">Issue Tracker</a>
                 </li>
-
+                <li class="flex-1 md:flex-none md:mr-3">
+                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                        href="/notifications">
+                        <i class="fas fa-bell fa-x"></i>
+                    </a>
+                </li>
                 <li class="flex flex-1 md:flex-none md:mr-3">
                     <img src="{{ auth()->user()->avatar }}" alt="User's Avatar" class="rounded" width="40" />
                     <a class="inline-block text-white no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
