@@ -26,7 +26,7 @@
             <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                 <li class="flex-1 md:flex-none md:mr-3">
                     <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                        href="https://github.com/kchhan" target="_blank">
+                        href="https://github.com/kchhan/issue-tracker" target="_blank">
                         <i class="fab fa-github fa-2x"></i>
                     </a>
                 </li>

@@ -4,7 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Notifications\ProjectAndTicketNotification;
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 
 class ProjectFactory extends Factory
 {
@@ -42,6 +44,10 @@ class ProjectFactory extends Factory
         })->afterCreating(function (Project $project) {
             $users = User::role('developer')->get()->take(rand(1, 8))->pluck('id');
             $project->developers()->sync($users);
+
+            foreach ($project->developers as $developer) {
+                $developer->notify(new ProjectAndTicketNotification(User::all()->first() , $project, 'Assign Project'));
+            }
         });
     }
 }

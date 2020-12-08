@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Project;
 use App\Models\Ticket;
+use App\Models\User;
+use App\Notifications\ProjectAndTicketNotification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketFactory extends Factory
@@ -42,6 +44,8 @@ class TicketFactory extends Factory
 
             $ticket->project_id = $project->id;
             $ticket->developer_id = $developer->id;
+        })->afterCreating(function (Ticket $ticket) {
+            $ticket->developer->notify(new ProjectAndTicketNotification(User::all()->first(), $ticket, 'Assign Ticket'));
         });
     }
 }

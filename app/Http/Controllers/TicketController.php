@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\ProjectAndTicketNotification;
 
 class TicketController extends Controller
 {
@@ -75,6 +76,10 @@ class TicketController extends Controller
         $ticket->project_id = request('project_id');
         $ticket->developer_id = request('developer_id');
         $ticket->save();
+
+        foreach ($ticket->developer as $developer) {
+            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Assign Ticket'));
+        }
 
         return redirect('tickets');
     }

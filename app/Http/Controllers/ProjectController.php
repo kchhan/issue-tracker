@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Notifications\ProjectAndTicketNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -69,6 +70,10 @@ class ProjectController extends Controller
         $project->save();
 
         $project->developers()->sync(request('developers'));
+
+        foreach ($project->developers as $developer) {
+            $developer->notify(new ProjectAndTicketNotification(auth()->user(), $project, 'Assign Project'));
+        }
 
         return redirect('projects');
     }
@@ -149,6 +154,8 @@ class ProjectController extends Controller
         $this->authorize('delete', $project);
 
         $project->delete();
+
+
 
         return redirect('projects');
     }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TicketController;
@@ -43,11 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tickets/{ticket}', [TicketController::class, 'update']);
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
 
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages');
-    Route::get('/messages/create', [MessageController::class, 'create']);
-    Route::post('/messages', [MessageController::class, 'store']);
-    Route::get('/messages/{message}', [MessageController::class, 'show']);
-    Route::delete('/messages/{message}', [MessageController::class, 'destroy']);
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications', [NotificationController::class, 'store']);
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/{user}', [UserController::class, 'show']);
