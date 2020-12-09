@@ -36,7 +36,16 @@
                 <li class="flex-1 md:flex-none md:mr-3">
                     <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
                         href="/notifications">
-                        <i class="fas fa-bell fa-x"></i>
+                        <i class="fas fa-bell
+                            @if (auth()->user()->unreadNotifications->count() > 0) 
+                            text-red-600
+                            @endif
+                        ">
+                            @if (auth()->user()->unreadNotifications->count() > 0)
+                            {{ auth()->user()->unreadNotifications->count() }}
+                            @endif
+
+                        </i>
                     </a>
                 </li>
                 <li class="flex flex-1 md:flex-none md:mr-3">
