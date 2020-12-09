@@ -1,18 +1,19 @@
 <x-app title="Your Notifications" color="purple">
-  <table>
-    <thead>
+  <table class="border-collapse m-5 mx-auto md:w-4/5 sm:w-full">
+    <thead class="text-left font-bold">
       <tr>
-        <th>Message</th>
-        <th>Mark as read</th>
+        <th class="p-2 border border-solid bg-purple-300">Message</th>
+        <th class="p-2 border border-solid bg-purple-300">Mark as read</th>
       </tr>
     </thead>
 
     <tbody>
-
       @forelse(auth()->user()->unreadNotifications as $notification)
       <tr>
-        <td>{{ $notification->data['message'] }}</td>
-        <td>
+        <td class="p-2 border border-solid even:bg-gray-200 w-4/5">
+          {{ $notification->data['message'] }}
+        </td>
+        <td class="p-2 border border-solid even:bg-gray-200 w-1/5">
           <form method="post" action="/notifications/{{ $notification->id }}/">
             @method('PATCH')
             @csrf
@@ -23,16 +24,10 @@
       </tr>
       @empty
       <tr>
-        <td>You have no Notifications</td>
+        <td class="p-2 border border-solid even:bg-gray-200 w-4/5">You have no Notifications</td>
+        <td class="p-2 border border-solid even:bg-gray-200 w-1/5"></td>
       </tr>
-
       @endempty
-
-
     </tbody>
   </table>
-
-
-
-
 </x-app>
