@@ -89,10 +89,7 @@ class ProjectController extends Controller
     {
         $this->authorize('view', $project);
 
-        $manager = $project->manager;
-        $developers = $project->developers;
-
-        return view('projects.show', compact('project', 'manager', 'developers'));
+        return view('projects.show', compact('project'));
     }
 
     /**

@@ -117,5 +117,15 @@
             </div>
             @endif
         </form>
+        <div>
+            @can('delete', $ticket)
+            <form method="POST" action="/tickets/{{ $ticket->id }}">
+                @csrf @method("DELETE")
+                <button type="submit" class="bg-red-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">
+                    Delete ticket
+                </button>
+            </form>
+            @endcan
+        </div>
     </div>
 </x-app>

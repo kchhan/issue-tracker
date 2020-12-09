@@ -93,10 +93,7 @@ class TicketController extends Controller
     {
         $this->authorize('view', $ticket);
 
-        $project = $ticket->project;
-        $developer = $ticket->developer;
-
-        return view('tickets.show', compact('ticket', 'project', 'developer'));
+        return view('tickets.show', compact('ticket'));
     }
 
     /**
