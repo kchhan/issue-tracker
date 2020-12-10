@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -23,10 +24,15 @@ class ProfileController extends Controller
     public function show(User $user)
     {
         $user = User::find($user->id);
-        $projects = $user->projects()->get();
-        $tickets = $user->tickets()->get();
 
-        return view('profiles.show', compact('user', 'projects', 'tickets'));
+        // will show any project with the user as manager
+        if ($user->hasAnyRole(['super_admin', 'admin', 'manager'])) {
+            $projects = Project::where('manager_id', $user->id)->get();
+        } else {
+            $projects = null;
+        }
+        
+        return view('profiles.show', compact('user', 'projects'));
     }
 
     /**

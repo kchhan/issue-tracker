@@ -18,7 +18,9 @@
             @method('PATCH')
             @csrf
             <input type="hidden" name="notification_uuid" value="{{ $notification->id }}">
-            <button type="submit">Read</button>
+            <button type="submit" class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">
+              Read
+            </button>
           </form>
         </td>
       </tr>
