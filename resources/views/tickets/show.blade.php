@@ -62,6 +62,7 @@
                 <td class="px-4 py-2 border border-solid even:bg-gray-200">There is no assigned Developer</td>
             </tr>
             @endif
+            @can('update', $ticket)
             <tr class="text-left">
                 <th class="px-4 py-2 border border-solid bg-orange-300 font-bold">Update</th>
                 <td class="px-4 py-2 border border-solid even:bg-gray-200">
@@ -70,6 +71,7 @@
                         Edit ticket</a>
                 </td>
             </tr>
+            @endcan
         </table>
     </section>
 </x-app>

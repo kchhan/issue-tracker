@@ -67,7 +67,7 @@ class ProjectPolicy
             return $user->id === $project->manager_id;
         }
 
-        return $user->can('edit any tickets');
+        return $user->can('edit any projects');
     }
 
     /**

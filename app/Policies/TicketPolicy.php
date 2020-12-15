@@ -64,7 +64,7 @@ class TicketPolicy
     public function update(User $user, Ticket $ticket)
     {
         if ($user->can('edit tickets')) {
-            if ($user->id === $ticket->developer->id) {
+            if ($user->id === $ticket->developer_id) {
                 return true;
             } elseif ($user->id === $ticket->project->manager_id) {
                 return true;
