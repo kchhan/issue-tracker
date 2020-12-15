@@ -43,14 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Hashes the password before storing
-     * @param string $value
-     */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // cannot use this here if using user factory seeding
+    // /**
+    //  * Hashes the password before storing
+    //  * @param string $value
+    //  */
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 
     /**
      * Returns users full name

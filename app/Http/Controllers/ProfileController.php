@@ -100,8 +100,12 @@ class ProfileController extends Controller
             $attributes['avatar'] = request('avatar')->store('public/avatars');
         }
 
+        // if (request('password')) {
+        //     $attributes['password'] = request('password');
+        // }
+
         if (request('password')) {
-            $attributes['password'] = request('password');
+            $attributes['password'] = bcrypt(request('password'));
         }
 
         $user->update($attributes);
