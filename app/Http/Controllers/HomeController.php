@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Models\Ticket;
 use Chartisan\PHP\Chartisan;
 
 class HomeController extends Controller
@@ -28,10 +30,15 @@ class HomeController extends Controller
         $role = auth()->user()->getRoleNames()->first();
         $role = ucfirst($role);
 
+        // developers
         $assignedProjects = auth()->user()->projects->count();
         $assignedTickets = auth()->user()->tickets->count();
 
-        return view('home', compact('role', 'assignedProjects', 'assignedTickets'));
+        // managers and admins
+        $managingProjects = Project::where('manager_id', auth()->user()->id)->count();
+        $uncompletedTickets = Ticket::whereIn('status', ['assigned', 'in_progress', 'submitted'])->count();
+
+        return view('home', compact('role', 'assignedProjects', 'assignedTickets', 'managingProjects', 'uncompletedTickets'));
     }
 
     /**
@@ -108,6 +115,58 @@ class HomeController extends Controller
                 $ticketInProgressStatus,
                 $ticketSubmittedStatus,
                 $ticketCompletedStatus
+            ])
+            ->toJSON();
+
+        return $chart;
+    }
+
+    /**
+     * Fetch ticket priority chart data
+     * 
+     * @return JSON
+     */
+    public function priorityChartManager()
+    {
+        $projects = Project::where('manager_id', auth()->user()->id)->get();
+
+        $projectLowPriority = $projects->where('priority', 'low')->count();
+        $projectMediumPriority = $projects->where('priority', 'medium')->count();
+        $projectHighPriority = $projects->where('priority', 'high')->count();
+
+        $chart = Chartisan::build()
+            ->labels(['Low', 'Medium', 'High'])
+            ->dataset('Projects', [
+                $projectLowPriority,
+                $projectMediumPriority,
+                $projectHighPriority
+            ])
+            ->toJSON();
+
+        return $chart;
+    }
+
+    /**
+     * Fetch ticket priority chart data
+     * 
+     * @return JSON
+     */
+    public function statusChartManager()
+    {
+        $projects = Project::where('manager_id', auth()->user()->id)->get();
+
+        $projectAssignedStatus = $projects->where('status', 'assigned')->count();
+        $projectInProgressStatus = $projects->where('status', 'in_progress')->count();
+        $projectSubmittedStatus = $projects->where('status', 'submitted')->count();
+        $projectCompletedStatus = $projects->where('status', 'completed')->count();
+
+        $chart = Chartisan::build()
+            ->labels(['Assigned', 'In Progress', 'Submitted', 'Completed'])
+            ->dataset('Projects', [
+                $projectAssignedStatus,
+                $projectInProgressStatus,
+                $projectSubmittedStatus,
+                $projectCompletedStatus
             ])
             ->toJSON();
 

@@ -107,10 +107,10 @@
             @endif
         </form>
         <div>
-            @can('update', $project)
+            @can('delete', $project)
             <form method="POST" action="/projects/{{ $project->id }}">
                 @csrf @method("DELETE")
-                <button type="submit" class="bg-red-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">
+                <button type="submit"  class="bg-red-500 rounded-lg mx-4 mt-2 px-4 py-1 text-white">
                     Delete Project
                 </button>
             </form>

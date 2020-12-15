@@ -41,15 +41,15 @@ class ProjectAndTicketNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        if ($this->method === "assign") {
+        if ($this->method == "assign") {
             $message = "{$this->user->name()} has assigned you to {$this->item_type}: {$this->item->title} (#ID: {$this->item->id})";
         }
 
-        if ($this->method === "update") {
+        if ($this->method == "update") {
             $message = "{$this->user->name()} has updated the {$this->item_type}: #ID: {$this->item->id} to {$this->item->status}";
         }
 
-        if ($this->method === "delete") {
+        if ($this->method == "delete") {
             $message = "{$this->user->name()} has deleted the {$this->item_type}: {$this->item->title}";
         }
 

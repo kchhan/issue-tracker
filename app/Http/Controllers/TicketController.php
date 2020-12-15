@@ -79,7 +79,7 @@ class TicketController extends Controller
         $ticket->save();
 
         // developer gets a notification that he or she has been assigned to a ticket
-        $ticket->developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Ticket', 'Assign'));
+        $ticket->developer->notify(new ProjectAndTicketNotification(auth()->user(), $ticket, 'Ticket', 'assign'));
 
         return redirect('tickets');
     }
