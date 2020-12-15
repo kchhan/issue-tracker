@@ -95,17 +95,17 @@ class RolesAndPermissionsSeeder extends Seeder
         $userSuperAdmin = User::factory()->create();
         $userSuperAdmin->assignRole($role1);
 
-        $userCollection = User::factory()->count(2)->create();
+        $userCollection = User::factory()->count(1)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role2);
         }
 
-        $userCollection = User::factory()->count(5)->create();
+        $userCollection = User::factory()->count(2)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role3);
         }
 
-        $userCollection = User::factory()->count(10)->create();
+        $userCollection = User::factory()->count(5)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role4);
         }
