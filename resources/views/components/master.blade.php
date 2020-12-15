@@ -19,14 +19,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
 
-    <!-- Charting library -->
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js" defer></script>
-
-    <!-- Chartisan -->
-    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js" defer></script>
-
     <!-- Turbo Links -->
-    <script src="http://unpkg.com/turbolinks" defer></script>
+    {{-- <script src="http://unpkg.com/turbolinks" defer></script> --}}
 </head>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">

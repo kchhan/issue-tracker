@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/priority_chart', [HomeController::class, 'priorityChart']);
+    Route::get('/type_chart', [HomeController::class, 'typeChart']);
+    Route::get('/status_chart', [HomeController::class, 'statusChart']);
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
     Route::post('/projects', [ProjectController::class, 'store']);
