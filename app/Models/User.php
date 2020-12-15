@@ -91,6 +91,14 @@ class User extends Authenticatable
      */
     public function getAvatarAttribute($value)
     {
-        return asset($value ?: '/images/default-avatar.jpeg');
+        if ($value) {
+            $arr = explode('/', $value);
+            $path = 'storage/' . $arr[1] . '/' . $arr[2];
+            // in 'public' directory
+            // 'storage/avatars/<string>.jpeg'
+            return asset($path);
+        } else {
+            return asset('/images/default-avatar.jpeg');
+        }
     }
 }

@@ -31,7 +31,7 @@ class ProfileController extends Controller
         } else {
             $projects = null;
         }
-        
+
         return view('profiles.show', compact('user', 'projects'));
     }
 
@@ -78,8 +78,14 @@ class ProfileController extends Controller
                 'max:50',
                 Rule::unique('users')->ignore($user),
             ],
-            'avatar' => ['file'],
-            'password' => ['string', 'min:8', 'max:255', 'confirmed', 'nullable']
+            'avatar' => ['image', 'dimensions:min_width=100,min_height=200'],
+            'password' => [
+                'string',
+                'min:8',
+                'max:255',
+                'confirmed',
+                'nullable'
+            ]
         ]);
 
         if ($validator->fails()) {
@@ -91,7 +97,7 @@ class ProfileController extends Controller
         $attributes = request(['first_name', 'last_name', 'username', 'email']);
 
         if (request('avatar')) {
-            $attributes['avatar'] = request('avatar')->store('avatars');
+            $attributes['avatar'] = request('avatar')->store('public/avatars');
         }
 
         if (request('password')) {
