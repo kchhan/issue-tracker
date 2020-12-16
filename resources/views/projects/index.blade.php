@@ -39,4 +39,29 @@
             </tr>
         </tbody>
     </table>
+
+    <table class="border-collapse mx-auto m-5">
+        <thead class="text-left font-bold">
+          <tr>
+            <th class="p-2 border border-solid bg-red-300">Your Assigned Projects</th>
+            <th class="p-2 border border-solid bg-red-300">View Project</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse (auth()->user()->projects as $project)
+          <tr>
+            <td class="p-2 border border-solid even:bg-gray-200">{{ $project->title }}</td>
+            <td class="p-2 border border-solid even:bg-gray-200">
+              <a href="/projects/{{ $project->id }}"
+                class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs mr-2">
+                Details
+              </a>
+            </td>
+          </tr>
+          @empty
+          <td class="p-2 border border-solid even:bg-gray-200">No assigned projects</td>
+          <td class="p-2 border border-solid even:bg-gray-200"></td>
+          @endforelse
+        </tbody>
+      </table>
 </x-app>
