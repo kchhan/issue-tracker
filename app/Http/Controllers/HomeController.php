@@ -32,13 +32,13 @@ class HomeController extends Controller
 
         // developers
         $assignedProjects = auth()->user()->projects->count();
-        $assignedTickets = auth()->user()->tickets->count();
+        $uncompletedAssignedTickets = auth()->user()->tickets->whereIn('status', ['assigned', 'in_progress', 'submitted'])->count();
 
         // managers and admins
         $managingProjects = Project::where('manager_id', auth()->user()->id)->count();
         $uncompletedTickets = Ticket::whereIn('status', ['assigned', 'in_progress', 'submitted'])->count();
 
-        return view('home', compact('role', 'assignedProjects', 'assignedTickets', 'managingProjects', 'uncompletedTickets'));
+        return view('home', compact('role', 'assignedProjects', 'uncompletedAssignedTickets', 'managingProjects', 'uncompletedTickets'));
     }
 
     /**

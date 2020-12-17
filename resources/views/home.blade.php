@@ -62,8 +62,8 @@
             <div class="rounded-full p-5 bg-yellow-600"><i class="fas fa-inbox fa-2x fa-inverse"></i></div>
           </div>
           <div class="flex-1 text-right md:text-center">
-            <h5 class="font-bold uppercase text-gray-600">Assigned Tickets</h5>
-            <h3 class="font-bold text-3xl">{{ $assignedTickets }}</h3>
+            <h5 class="font-bold uppercase text-gray-600">Uncompleted Assigned Tickets</h5>
+            <h3 class="font-bold text-3xl">{{ $uncompletedAssignedTickets }}</h3>
           </div>
         </div>
       </div>
