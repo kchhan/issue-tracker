@@ -22,13 +22,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        static $password;
+
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'username' => $this->faker->unique()->username,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => '$2y$10$g6uWtYYuFqzsuv10eeM4mOqpdbo3W9.VKY3f26rc25gaWWB8fPk42',
+            'password' => $password ?: $password = bcrypt(env('USER_FACTORY_PASSWORD')),
             'remember_token' => Str::random(10),
         ];
     }

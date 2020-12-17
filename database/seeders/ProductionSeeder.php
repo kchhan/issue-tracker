@@ -2,13 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
+use App\Models\Ticket;
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
-class RolesAndPermissionsSeeder extends Seeder
+class ProductionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -93,26 +96,37 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit profile',
             ]);
 
-        // create demo users
-        $userSuperAdmin = User::factory()->create();
+         // create demo users
+        $userSuperAdmin = User::create([
+            'first_name' => 'Kevin',
+            'last_name' => 'Chhan',
+            'username' => 'kchhan',
+            'email' => 'kvnchhan@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt(env('USER_FACTORY_PASSWORD')),
+            'remember_token' => Str::random(10),
+        ]);
         $userSuperAdmin->assignRole($role1);
-
+ 
         $userCollection = User::factory()->count(1)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role2);
         }
 
-        $userCollection = User::factory()->count(2)->create();
+        $userCollection = User::factory()->count(1)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role3);
         }
 
-        $userCollection = User::factory()->count(5)->create();
+        $userCollection = User::factory()->count(3)->create();
         foreach ($userCollection as $user) {
             $user->assignRole($role4);
         }
 
-        $userGuest = User::factory()->create();
+        $userGuest = User::factory()->create();     
         $userGuest->assignRole($role5);
+
+        Project::factory()->count(4)->create();
+        Ticket::factory()->count(10)->create();
     }
 }

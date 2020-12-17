@@ -112,7 +112,7 @@
                             </p>
                             @endif
 
-                            <p
+                            {{-- <p
                                 class="w-full text-xs text-center text-gray-700 my-3 sm:text-sm sm:my-8"
                             >
                                 {{ __("Login as Guest") }}
@@ -122,7 +122,7 @@
                                 >
                                     {{ __("Login") }}
                                 </a>
-                            </p>
+                            </p> --}}
                         </div>
                     </form>
                 </section>
