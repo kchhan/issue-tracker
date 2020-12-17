@@ -27,7 +27,7 @@ class TicketFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'duedate' => $this->faker->dateTimeThisMonth,
+            'duedate' => $this->faker->dateTimeBetween('+1 week', '+3 months'),
         ];
     }
 

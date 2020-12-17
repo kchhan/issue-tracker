@@ -33,7 +33,7 @@ class Project extends Model
      */
     public function getDuedateAttribute($value)
     {
-        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value);
     }
 
     /**
@@ -42,7 +42,7 @@ class Project extends Model
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value);
     }
 
     /**
@@ -51,7 +51,7 @@ class Project extends Model
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::createFromDate($value)->timezone('America/Los_Angeles');
+        return Carbon::createFromDate($value);
     }
 
     /**
