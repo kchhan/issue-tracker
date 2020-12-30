@@ -31,8 +31,8 @@
         <td></td>
         <td></td>
         <td>
-          @can('create projects')
-          <a class="bg-green-500 rounded-full shadow inline-block my-4 py-2 px-3 text-white text-xs md:text-sm"
+          @can(' create projects') <a
+            class="bg-green-500 rounded-full shadow inline-block my-4 py-2 px-3 text-white text-xs md:text-sm"
             href="/projects/create">New Project</a>
           @endcan
         </td>
